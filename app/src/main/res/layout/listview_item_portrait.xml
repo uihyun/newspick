@@ -3,23 +3,27 @@
     android:id="@+id/listview_item_portrait"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="10dp"
     android:background="#FFFFFF"
     android:orientation="vertical">
+
+    <com.android.volley.toolbox.NetworkImageView
+        android:id="@+id/list_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:adjustViewBounds="true"
+        android:background="#FFFFFF"
+        android:scaleType="fitCenter" />
 
     <TextView
         android:id="@+id/list_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
+        android:layout_marginLeft="@dimen/margin"
+        android:layout_marginRight="@dimen/margin"
+        android:layout_marginTop="@dimen/margin"
         android:textColor="#FFFFFF"
-        android:textSize="9dp" />
-
-    <com.android.volley.toolbox.NetworkImageView
-        android:id="@+id/list_image"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#FFFFFF"
-        android:scaleType="fitXY" />
+        android:textSize="10dp" />
 
 </RelativeLayout>

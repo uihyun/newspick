@@ -9,7 +9,6 @@ import java.util.List;
  */
 
 public class Story {
-
     @SerializedName("section")
     String section;
     @SerializedName("title")

@@ -1,25 +1,14 @@
 package com.uihyun.newyorktimes.list;
 
-import android.graphics.Bitmap;
-
 /**
  * Created by Uihyun on 2017. 1. 26..
  */
 
 public class ListViewItem {
-    private Bitmap image;
     private int type;
     private String imageUrl;
     private String title;
     private String storyLink;
-
-    public Bitmap getImage() {
-        return image;
-    }
-
-    public void setImage(Bitmap image) {
-        this.image = image;
-    }
 
     public int getType() {
         return type;
@@ -35,14 +24,6 @@ public class ListViewItem {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
-    }
-
-    public String getStoryLink() {
-        return storyLink;
-    }
-
-    public void setStoryLink(String storyLink) {
-        this.storyLink = storyLink;
     }
 
     public String getTitle() {

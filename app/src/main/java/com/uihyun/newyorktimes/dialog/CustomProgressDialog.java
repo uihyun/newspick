@@ -14,7 +14,7 @@ import com.uihyun.newyorktimes.R;
 public class CustomProgressDialog extends Dialog {
 
     public CustomProgressDialog(Context context) {
-        super(context, R.style.CustomDialog);
+        super(context, R.style.custom_progress_dialog);
     }
 
     public static CustomProgressDialog show(Context context, CharSequence title,

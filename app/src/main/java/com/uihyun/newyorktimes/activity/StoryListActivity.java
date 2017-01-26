@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.uihyun.newyorktimes.R;
+import com.uihyun.newyorktimes.data.Photo;
 import com.uihyun.newyorktimes.data.Story;
 import com.uihyun.newyorktimes.data.StoryData;
 import com.uihyun.newyorktimes.dialog.CustomProgressDialog;
@@ -63,8 +65,11 @@ public class StoryListActivity extends Activity {
                                 for (int i = 0; i < storyList.size(); i++) {
                                     try {
                                         if (storyList.get(i).getPhotoList().size() > 0) {
-                                            URL imageUrl = new URL(storyList.get(i).getPhotoList().get(0).getImageUrl());
-                                            listAdapter.addItem(imageUrl.toString(), storyList.get(i).getTitle());
+                                            Photo photo = storyList.get(i).getPhotoList().get(2);
+                                            URL imageUrl = new URL(photo.getImageUrl());
+                                            listAdapter.addItem(imageUrl.toString(), photo.getHeight(), photo.getWidth(), storyList.get(i).getTitle());
+                                        } else {
+                                            listAdapter.addItem(null, 0, 0, storyList.get(i).getTitle());
                                         }
                                     } catch (MalformedURLException e) {
                                         e.printStackTrace();
@@ -73,17 +78,7 @@ public class StoryListActivity extends Activity {
                             }
                             listAdapter.notifyDataSetChanged();
                         } else {
-//                            SweetAlertDialog dialog = new SweetAlertDialog(getContext());
-//                            dialog.setContentText(response.getErrorMessage());
-//                            dialog.setCancelable(false);
-//                            dialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-//                                @Override
-//                                public void onClick(SweetAlertDialog sweetAlertDialog) {
-//                                    contextHelper.getActivity().finish();
-//                                }
-//                            });
-//
-//                            dialog.show();
+                            Toast.makeText(getApplicationContext(), getString(R.string.no_result), Toast.LENGTH_SHORT).show();
                         }
 
                     }

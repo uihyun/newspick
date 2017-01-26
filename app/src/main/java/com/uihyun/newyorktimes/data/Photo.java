@@ -9,11 +9,17 @@ import com.google.gson.annotations.SerializedName;
 public class Photo {
     @SerializedName("url")
     String imageUrl;
-    @SerializedName("format")
-    String format;
+    @SerializedName("height")
+    int height;
+    @SerializedName("width")
+    int width;
 
-    public String getFormat() {
-        return format;
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
     }
 
     public String getImageUrl() {

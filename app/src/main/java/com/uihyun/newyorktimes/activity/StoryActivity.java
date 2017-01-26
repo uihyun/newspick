@@ -3,6 +3,7 @@ package com.uihyun.newyorktimes.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -22,6 +23,9 @@ public class StoryActivity extends Activity {
 
         webView = (WebView) findViewById(R.id.webview_story);
         webView.getSettings().setJavaScriptEnabled(true);
+        webView.getSettings().setDomStorageEnabled(true);
+        webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
+
         webView.setWebViewClient(new WebViewClient());
 
         webView.loadUrl(storyLink);
