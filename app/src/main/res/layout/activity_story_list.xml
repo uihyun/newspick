@@ -8,12 +8,18 @@
     android:background="@android:color/black"
     tools:context="com.uihyun.newyorktimes.activity.StoryListActivity">
 
-    <com.uihyun.newyorktimes.model.StaggeredGridView
-        android:id="@+id/gridview"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/white"
-        staggered:drawSelectorOnTop="true"
-        staggered:numColumns="2" />
+        android:layout_height="wrap_content">
 
+        <com.uihyun.newyorktimes.model.StaggeredGridView
+            android:id="@+id/gridview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            staggered:drawSelectorOnTop="true"
+            staggered:numColumns="2" />
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

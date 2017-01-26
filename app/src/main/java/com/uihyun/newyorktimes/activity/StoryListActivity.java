@@ -3,6 +3,7 @@ package com.uihyun.newyorktimes.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.Toast;
 
@@ -26,6 +27,7 @@ public class StoryListActivity extends Activity {
     private List<Story> storyList;
     private CustomProgressDialog progressDialog;
     private StaggeredGridView gridView;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +52,29 @@ public class StoryListActivity extends Activity {
             }
         });
 
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
+        swipeRefreshLayout.setColorSchemeResources(
+                android.R.color.holo_red_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_green_light,
+                android.R.color.holo_blue_bright,
+                android.R.color.holo_purple
+        );
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                listAdapter.removeListViewItems();
+                getStories();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
         progressDialog = CustomProgressDialog.show(this, "", false, null);
+        getStories();
+        progressDialog.dismiss();
+    }
+
+    private void getStories() {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -85,6 +109,5 @@ public class StoryListActivity extends Activity {
                 }, null);
             }
         });
-        progressDialog.dismiss();
     }
 }
