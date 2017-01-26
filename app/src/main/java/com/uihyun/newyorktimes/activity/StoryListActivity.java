@@ -44,7 +44,6 @@ public class StoryListActivity extends Activity {
         int margin = getResources().getDimensionPixelSize(R.dimen.margin);
         gridView.setItemMargin(margin);
         gridView.setPadding(margin, 0, margin, 0);
-
         gridView.setOnItemClickListener(new StaggeredGridView.OnItemClickListener() {
             @Override
             public void onItemClick(StaggeredGridView parent, View view, int position, long id) {
@@ -53,6 +52,7 @@ public class StoryListActivity extends Activity {
                 startActivity(intent);
             }
         });
+
 
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
         swipeRefreshLayout.setColorSchemeResources(
@@ -70,6 +70,7 @@ public class StoryListActivity extends Activity {
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
+        swipeRefreshLayout.setEnabled(false);
 
         progressDialog = CustomProgressDialog.show(this, "", false, null);
         getStories();
