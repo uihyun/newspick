@@ -16,6 +16,7 @@ import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 import com.google.gson.JsonSyntaxException;
+import com.uihyun.newyorktimes.logger.Logger;
 
 import org.json.JSONObject;
 
@@ -48,7 +49,7 @@ public class GsonBodyRequest<T> extends JsonRequest<T> {
                 errorListener);
 
         GsonBuilder gsonBuilder = new GsonBuilder();
-        gsonBuilder.registerTypeAdapter(Date.class, new gsonUTCdateAdapter());
+        gsonBuilder.registerTypeAdapter(Date.class, new GsonUTCdateAdapter());
         mGson = gsonBuilder.create();
 
         mClassType = classType;
@@ -68,27 +69,25 @@ public class GsonBodyRequest<T> extends JsonRequest<T> {
         try {
             String json = new String(networkResponse.data, HttpHeaderParser.parseCharset
                     (networkResponse.headers));
-
-            //Logger.debug(TAG, "json = " + json);
+            Logger.debug(getClass().getSimpleName(), "json = " + json);
 
             return Response.success(mGson.fromJson(json, mClassType),
                     HttpHeaderParser.parseCacheHeaders(networkResponse));
 
         } catch (UnsupportedEncodingException e) {
+            Logger.error(getClass().getSimpleName(), e.getMessage());
             return Response.error(new ParseError(e));
         } catch (JsonSyntaxException e) {
-//            Logger.debug(TAG, e.toString());
-//            Logger.debug(TAG, "url = " + url);
-//            Logger.debug(TAG, "json = " + json);
+            Logger.error(getClass().getSimpleName(), e.getMessage());
             return Response.error(new ParseError(e));
         }
     }
 
-    private class gsonUTCdateAdapter implements JsonSerializer<Date>, JsonDeserializer<Date> {
+    private class GsonUTCdateAdapter implements JsonSerializer<Date>, JsonDeserializer<Date> {
 
         private final DateFormat dateFormat;
 
-        public gsonUTCdateAdapter() {
+        public GsonUTCdateAdapter() {
             dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.KOREA);
             dateFormat.setTimeZone(TimeZone.getTimeZone("KST"));
         }
@@ -103,6 +102,7 @@ public class GsonBodyRequest<T> extends JsonRequest<T> {
             try {
                 return dateFormat.parse(jsonElement.getAsString());
             } catch (ParseException e) {
+                Logger.error(getClass().getSimpleName(), e.getMessage());
                 throw new JsonParseException(e);
             }
         }

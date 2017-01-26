@@ -48,10 +48,10 @@ import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.accessibility.AccessibilityEvent;
-import android.widget.AdapterView;
 import android.widget.ListAdapter;
 
 import com.uihyun.newyorktimes.R;
+import com.uihyun.newyorktimes.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -389,7 +389,7 @@ public class StaggeredGridView extends ViewGroup {
 
                 final int index = MotionEventCompat.findPointerIndex(ev, mActivePointerId);
                 if (index < 0) {
-                    Log.e(TAG, "onInterceptTouchEvent could not find pointer with id " +
+                    Logger.error(TAG, "onInterceptTouchEvent could not find pointer with id " +
                             mActivePointerId + " - did StaggeredGridView receive an inconsistent " +
                             "event stream?");
                     return false;
@@ -1394,7 +1394,7 @@ public class StaggeredGridView extends ViewGroup {
      * for debug purposes
      */
     private void displayMapping() {
-        Log.w("DISPLAY", "MAP ****************");
+        Logger.debug("DISPLAY", "MAP ****************");
         StringBuilder sb = new StringBuilder();
         int col = 0;
 
@@ -1405,11 +1405,11 @@ public class StaggeredGridView extends ViewGroup {
                 sb.append(i);
                 sb.append(" , ");
             }
-            Log.w("DISPLAY", sb.toString());
+            Logger.debug("DISPLAY", sb.toString());
             sb = new StringBuilder();
             col++;
         }
-        Log.w("DISPLAY", "MAP END ****************");
+        Logger.debug("DISPLAY", "MAP END ****************");
     }
 
     /**
@@ -1705,7 +1705,7 @@ public class StaggeredGridView extends ViewGroup {
                         final View child = getChildAt(i);
                         final int left = child.getLeft();
                         int col = 0;
-                        Log.w("mColWidth", mColWidth + " " + left);
+                        Logger.debug("mColWidth", mColWidth + " " + left);
 
                         // determine the column by cycling widths
                         while (left > col * (this.mColWidth + mItemMargin * 2) + getPaddingLeft()) {
@@ -1888,6 +1888,16 @@ public class StaggeredGridView extends ViewGroup {
         return mSelector;
     }
 
+    /**
+     * Set a Drawable that should be used to highlight the currently selected item.
+     *
+     * @param resID A Drawable resource to use as the selection highlight.
+     * @attr ref android.R.styleable#AbsListView_listSelector
+     */
+    public void setSelector(int resID) {
+        setSelector(getResources().getDrawable(resID));
+    }
+
     public void setSelector(Drawable sel) {
         if (mSelector != null) {
             mSelector.setCallback(null);
@@ -1908,16 +1918,6 @@ public class StaggeredGridView extends ViewGroup {
         mSelectionBottomPadding = padding.bottom;
         sel.setCallback(this);
         updateSelectorState();
-    }
-
-    /**
-     * Set a Drawable that should be used to highlight the currently selected item.
-     *
-     * @param resID A Drawable resource to use as the selection highlight.
-     * @attr ref android.R.styleable#AbsListView_listSelector
-     */
-    public void setSelector(int resID) {
-        setSelector(getResources().getDrawable(resID));
     }
 
     @Override
@@ -2048,7 +2048,6 @@ public class StaggeredGridView extends ViewGroup {
     public void setDrawSelectorOnTop(boolean mDrawSelectorOnTop) {
         this.mDrawSelectorOnTop = mDrawSelectorOnTop;
     }
-
 
 
     /**
@@ -2198,7 +2197,7 @@ public class StaggeredGridView extends ViewGroup {
             super(MATCH_PARENT, height);
 
             if (this.height == MATCH_PARENT) {
-                Log.w(TAG, "Constructing LayoutParams with height FILL_PARENT - " +
+                Logger.debug(TAG, "Constructing LayoutParams with height FILL_PARENT - " +
                         "impossible! Falling back to WRAP_CONTENT");
                 this.height = WRAP_CONTENT;
             }
@@ -2208,12 +2207,12 @@ public class StaggeredGridView extends ViewGroup {
             super(c, attrs);
 
             if (this.width != MATCH_PARENT) {
-                Log.w(TAG, "Inflation setting LayoutParams width to " + this.width +
+                Logger.debug(TAG, "Inflation setting LayoutParams width to " + this.width +
                         " - must be MATCH_PARENT");
                 this.width = MATCH_PARENT;
             }
             if (this.height == MATCH_PARENT) {
-                Log.w(TAG, "Inflation setting LayoutParams height to MATCH_PARENT - " +
+                Logger.debug(TAG, "Inflation setting LayoutParams height to MATCH_PARENT - " +
                         "impossible! Falling back to WRAP_CONTENT");
                 this.height = WRAP_CONTENT;
             }
@@ -2227,12 +2226,12 @@ public class StaggeredGridView extends ViewGroup {
             super(other);
 
             if (this.width != MATCH_PARENT) {
-                Log.w(TAG, "Constructing LayoutParams with width " + this.width +
+                Logger.debug(TAG, "Constructing LayoutParams with width " + this.width +
                         " - must be MATCH_PARENT");
                 this.width = MATCH_PARENT;
             }
             if (this.height == MATCH_PARENT) {
-                Log.w(TAG, "Constructing LayoutParams with height MATCH_PARENT - " +
+                Logger.debug(TAG, "Constructing LayoutParams with height MATCH_PARENT - " +
                         "impossible! Falling back to WRAP_CONTENT");
                 this.height = WRAP_CONTENT;
             }

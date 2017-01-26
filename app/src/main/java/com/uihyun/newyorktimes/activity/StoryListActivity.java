@@ -14,6 +14,7 @@ import com.uihyun.newyorktimes.data.Story;
 import com.uihyun.newyorktimes.data.StoryData;
 import com.uihyun.newyorktimes.dialog.CustomProgressDialog;
 import com.uihyun.newyorktimes.list.ListViewAdapter;
+import com.uihyun.newyorktimes.logger.Logger;
 import com.uihyun.newyorktimes.manager.StoryManager;
 import com.uihyun.newyorktimes.model.StaggeredGridView;
 
@@ -33,6 +34,7 @@ public class StoryListActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_story_list);
+        Logger.info(getClass().getSimpleName(), "open activity");
 
         listAdapter = new ListViewAdapter();
 
@@ -75,6 +77,8 @@ public class StoryListActivity extends Activity {
     }
 
     private void getStories() {
+        Logger.debug(getClass().getSimpleName(), "refresh story");
+
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -96,7 +100,7 @@ public class StoryListActivity extends Activity {
                                             listAdapter.addItem(null, 0, 0, storyList.get(i).getTitle());
                                         }
                                     } catch (MalformedURLException e) {
-                                        e.printStackTrace();
+                                        Logger.error(getClass().getSimpleName(), e.getMessage());
                                     }
                                 }
                             }

@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.android.volley.toolbox.NetworkImageView;
 import com.uihyun.newyorktimes.AppController;
 import com.uihyun.newyorktimes.R;
+import com.uihyun.newyorktimes.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -30,6 +31,9 @@ public class ListViewAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         Context context = parent.getContext();
         ListViewItem item = listViewItemList.get(position);
+
+        String title = item.getTitle();
+        Logger.debug(getClass().getSimpleName(), "get list item view = " + title);
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         switch (item.getType()) {
@@ -57,7 +61,6 @@ public class ListViewAdapter extends BaseAdapter {
         else
             imageView.setVisibility(View.GONE);
 
-        String title = item.getTitle();
         Paint paint = titleTextView.getPaint();
         StringBuilder sb = new StringBuilder();
         int line = 0;
@@ -77,7 +80,6 @@ public class ListViewAdapter extends BaseAdapter {
             line++;
         }
         titleTextView.setText(title);
-
 
         return convertView;
     }
@@ -99,12 +101,15 @@ public class ListViewAdapter extends BaseAdapter {
     }
 
     public void addItem(String imageUrl, int height, int width, String title) {
+        Logger.debug(getClass().getSimpleName(), "add list item = " + title);
+
         ListViewItem item = new ListViewItem();
 
-        if (height <= width)
+        if (height <= width) {
             item.setType(TYPE_LANDSCAPE);
-        else
+        } else {
             item.setType(TYPE_PORTRAIT);
+        }
 
         item.setImageUrl(imageUrl);
         item.setTitle(title);

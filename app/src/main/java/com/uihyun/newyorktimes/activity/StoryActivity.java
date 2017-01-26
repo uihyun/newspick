@@ -8,6 +8,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.uihyun.newyorktimes.R;
+import com.uihyun.newyorktimes.logger.Logger;
 
 public class StoryActivity extends Activity {
 
@@ -17,6 +18,7 @@ public class StoryActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_story);
+        Logger.info(getClass().getSimpleName(), "open activity");
 
         Intent intent = getIntent();
         String storyLink = (String) intent.getSerializableExtra("story_link");
@@ -28,6 +30,7 @@ public class StoryActivity extends Activity {
 
         webView.setWebViewClient(new WebViewClient());
 
+        Logger.debug(getClass().getSimpleName(), "link = " + storyLink);
         webView.loadUrl(storyLink);
     }
 }
