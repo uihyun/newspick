@@ -1,6 +1,6 @@
 package com.uihyun.newyorktimes;
 
-import android.app.Application;
+import android.support.multidex.MultiDexApplication;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
@@ -37,7 +37,7 @@ import org.acra.annotation.ReportsCrashes;
                 mailTo = "uihyunkei@gmail.com"
         )
 
-public class AppController extends Application {
+public class AppController extends MultiDexApplication {
 
     private static RequestQueue mRequestQueue;
     private static ImageLoader mImageLoader;
