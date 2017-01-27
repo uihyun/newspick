@@ -72,9 +72,9 @@ public class StoryListActivity extends Activity {
         });
         swipeRefreshLayout.setEnabled(false);
 
-        progressDialog = CustomProgressDialog.show(this, "", false, null);
+//        progressDialog = CustomProgressDialog.show(this, "", false, null);
         getStories();
-        progressDialog.dismiss();
+//        progressDialog.dismiss();
     }
 
     private void getStories() {

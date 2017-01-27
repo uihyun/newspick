@@ -81,6 +81,15 @@ public class ListViewAdapter extends BaseAdapter {
         }
         titleTextView.setText(title);
 
+//        float widthTextView = titleTextView.getResources().getDisplayMetrics().widthPixels;
+//        for (int i=0; i<title.length(); i++) {
+//            titleTextView.setText(title.substring(0, i+i));
+//            if (titleTextView.getPaint().measureText(title.substring(0, i+i), 0, title.substring(0, i+i).length()) > widthTextView) {
+//                titleTextView.setText(title.substring(0, i+i) + "...");
+//                break;
+//            }
+//        }
+
         return convertView;
     }
 
@@ -119,5 +128,9 @@ public class ListViewAdapter extends BaseAdapter {
 
     public void removeListViewItems() {
         listViewItemList.clear();
+    }
+
+    public void removeListViewItem(int index) {
+        listViewItemList.remove(index);
     }
 }
