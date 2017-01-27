@@ -8,7 +8,6 @@ public class ListViewItem {
     private int type;
     private String imageUrl;
     private String title;
-    private String storyLink;
 
     public int getType() {
         return type;

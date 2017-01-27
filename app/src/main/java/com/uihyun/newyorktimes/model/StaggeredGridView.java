@@ -34,7 +34,6 @@ import android.support.v4.view.MotionEventCompat;
 import android.support.v4.view.VelocityTrackerCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.EdgeEffectCompat;
-import android.support.v4.widget.ScrollerCompat;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.SparseArray;
@@ -56,6 +55,8 @@ import com.uihyun.newyorktimes.logger.Logger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+
+;
 
 /**
  * ListView and GridView just not complex enough? Try StaggeredGridView!
@@ -230,7 +231,7 @@ public class StaggeredGridView extends ViewGroup {
         mTouchSlop = vc.getScaledTouchSlop();
         mMaximumVelocity = vc.getScaledMaximumFlingVelocity();
         mFlingVelocity = vc.getScaledMinimumFlingVelocity();
-        mScroller = ScrollerCompat.create(context);
+        mScroller = ScrollerCompat.from(context);
 
         mTopEdge = new EdgeEffectCompat(context);
         mBottomEdge = new EdgeEffectCompat(context);
@@ -1888,16 +1889,6 @@ public class StaggeredGridView extends ViewGroup {
         return mSelector;
     }
 
-    /**
-     * Set a Drawable that should be used to highlight the currently selected item.
-     *
-     * @param resID A Drawable resource to use as the selection highlight.
-     * @attr ref android.R.styleable#AbsListView_listSelector
-     */
-    public void setSelector(int resID) {
-        setSelector(getResources().getDrawable(resID));
-    }
-
     public void setSelector(Drawable sel) {
         if (mSelector != null) {
             mSelector.setCallback(null);
@@ -1918,6 +1909,16 @@ public class StaggeredGridView extends ViewGroup {
         mSelectionBottomPadding = padding.bottom;
         sel.setCallback(this);
         updateSelectorState();
+    }
+
+    /**
+     * Set a Drawable that should be used to highlight the currently selected item.
+     *
+     * @param resID A Drawable resource to use as the selection highlight.
+     * @attr ref android.R.styleable#AbsListView_listSelector
+     */
+    public void setSelector(int resID) {
+        setSelector(getResources().getDrawable(resID));
     }
 
     @Override

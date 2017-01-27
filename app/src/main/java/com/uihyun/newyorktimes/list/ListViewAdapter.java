@@ -120,8 +120,4 @@ public class ListViewAdapter extends BaseAdapter {
     public void removeListViewItems() {
         listViewItemList.clear();
     }
-
-    public void removeListViewItem(int index) {
-        listViewItemList.remove(index);
-    }
 }
